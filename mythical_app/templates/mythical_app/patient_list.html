@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Patient Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Manrope", sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 text-slate-100">
+    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        <section class="relative overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-2xl shadow-slate-950/40 backdrop-blur">
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-300/15 via-transparent to-emerald-300/10"></div>
+
+            <header class="relative border-b border-white/15 px-6 py-6 sm:px-8">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-200">Mythical Mane</p>
+                        <h1 class="mt-2 text-2xl font-extrabold tracking-tight text-white sm:text-3xl">Patient Directory</h1>
+                        <p class="mt-2 text-sm text-slate-300">A complete overview of patients, guardians, and universes.</p>
+                    </div>
+                    <div class="inline-flex items-center rounded-full border border-cyan-300/40 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-100">
+                        {{ patients|length }} total patients
+                    </div>
+                </div>
+            </header>
+
+            <div class="relative overflow-x-auto">
+                <table class="min-w-full text-sm">
+                    <thead class="border-b border-white/15 bg-black/20 text-left text-xs font-semibold uppercase tracking-[0.12em] text-slate-300">
+                        <tr>
+                            <th class="px-6 py-4 sm:px-8">Patient</th>
+                            <th class="px-6 py-4 sm:px-8">Color</th>
+                            <th class="px-6 py-4 sm:px-8">Date of Birth</th>
+                            <th class="px-6 py-4 sm:px-8">Owner</th>
+                            <th class="px-6 py-4 sm:px-8">Universe</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10">
+                        {% for patient in patients %}
+                        <tr class="transition-colors hover:bg-white/10">
+                            <td class="whitespace-nowrap px-6 py-4 font-semibold text-white sm:px-8">{{ patient.name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-slate-200 sm:px-8">
+                                <span class="inline-flex items-center rounded-full border border-emerald-200/40 bg-emerald-300/15 px-2.5 py-1 text-xs font-semibold text-emerald-100">
+                                    {{ patient.color|default:"Unknown" }}
+                                </span>
+                            </td>
+                            <td class="whitespace-nowrap px-6 py-4 text-slate-200 sm:px-8">{{ patient.dob|date:"M d, Y"|default:"Unknown" }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-slate-200 sm:px-8">{{ patient.owner.name }}</td>
+                            <td class="whitespace-nowrap px-6 py-4 text-slate-200 sm:px-8">{{ patient.universe.name }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center sm:px-8">
+                                <p class="text-base font-semibold text-white">No patients found</p>
+                                <p class="mt-1 text-sm text-slate-300">Once records are added, they will appear here with owner and universe details.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
