@@ -122,6 +122,18 @@ class PatientAbility(models.Model):
         unique_together = (('patient', 'ability'),)
 
 
+class CareNote(models.Model):
+    care_note_id = models.BigAutoField(primary_key=True)
+    patient = models.ForeignKey(Patient, models.CASCADE, related_name="care_notes")
+    note = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    follow_up_date = models.DateField(blank=True, null=True)
+    resolved = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'care_note'
+
+
 class Payment(models.Model):
     payment_id = models.BigAutoField(primary_key=True)
     invoice = models.ForeignKey(Invoice, models.DO_NOTHING)

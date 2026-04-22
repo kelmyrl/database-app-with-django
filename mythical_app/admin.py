@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import (
 	Ability,
+	CareNote,
 	Diagnosis,
 	Employee,
 	Invoice,
@@ -32,3 +33,4 @@ admin.site.register(Universe)
 admin.site.register(Visit)
 admin.site.register(VisitDiagnosis)
 admin.site.register(VisitProcedure)
+admin.site.register(CareNote)

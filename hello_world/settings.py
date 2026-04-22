@@ -35,7 +35,16 @@ ALLOWED_HOSTS.extend(["localhost", "127.0.0.1", "[::1]"])
 if 'CODESPACE_NAME' in os.environ:
     codespace_name = config("CODESPACE_NAME")
     codespace_domain = config("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
-    CSRF_TRUSTED_ORIGINS = [f'https://{codespace_name}-8000.{codespace_domain}']
+    CSRF_TRUSTED_ORIGINS = [
+        "https://localhost:8000",
+        "http://localhost:8000",
+        f'https://{codespace_name}-8000.{codespace_domain}',
+        f'https://{codespace_name}-8000.preview.{codespace_domain}',
+        f'https://*.{codespace_domain}',
+        f'https://*.preview.{codespace_domain}',
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = ["https://localhost:8000", "http://localhost:8000"]
 
 # Application definition
 
